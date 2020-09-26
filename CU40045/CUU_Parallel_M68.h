@@ -44,7 +44,7 @@ public:
         write(0x38, false); // 8-bit function set
         write(0x38, false); // 8-bit function set
     }
-    void write(uint8_t data, bool rs, bool topLine = true)
+    void write(uint8_t data, bool rs, CUU_Module module = Both)
     {
         SETPIN(D0, data & 0x01);
         SETPIN(D1, data & 0x02);
@@ -58,16 +58,23 @@ public:
         SETPIN(RS, rs);
         LOWER(RW);
 
-        if (topLine)
+        if (module == Top || module == Both)
         {
             RAISE(E1);
-            _delay_us(0.5);
-            LOWER(E1);
         }
-        else
+        if (module == Bottom || module == Both)
         {
             RAISE(E2);
-             _delay_us(0.5);
+        }
+
+        _delay_us(0.5);
+
+        if (module == Top || module == Both)
+        {
+            LOWER(E1);
+        }
+        if (module == Bottom || module == Both)
+        {
             LOWER(E2);
         }
     }
