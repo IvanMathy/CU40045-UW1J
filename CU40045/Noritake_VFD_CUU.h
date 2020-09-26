@@ -9,8 +9,6 @@ protected:
 	bool blink;				 // cursor is blinking
 	bool rightToLeft;		 // text direction is right-to-left
 	bool autoscroll;		 // autoscroll on input
-	bool hasBrightnessBoost; // module has brightness boost
-	bool is_cu20045_uw4j;	 // module is a CU20045-UW4J
 	CUU_Interface *io;		 // interface
 
 	void setDisplay();	 // Set display according to display/cursor/blink members
@@ -29,8 +27,6 @@ public:
 
 	void begin(int cols, int lines);
 	void interface(CUU_Interface &interface);
-	void brightnessBoost() { hasBrightnessBoost = true; }
-	void cu20045_uw4j() { is_cu20045_uw4j = true; };
 
 	void bcVFD() { bc_vfd = true; }
 	void japaneseFont()
@@ -51,8 +47,6 @@ public:
 		blink = false;
 		rightToLeft = false;
 		autoscroll = false;
-		hasBrightnessBoost = false;
-		is_cu20045_uw4j = false;
 	}
 
 	void CUU_init();

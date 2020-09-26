@@ -78,7 +78,7 @@ public:
             LOWER(E2);
         }
     }
-    uint8_t read(bool rs)
+    uint8_t read(bool rs, CUU_Module module = Top)
     {
         DIRECTION(D0, 0);
         DIRECTION(D1, 0);
@@ -91,7 +91,12 @@ public:
 
         SETPIN(RS, rs);
         RAISE(RW);
-        RAISE(E1);
+        if (module == Bottom)
+        {
+            RAISE(E2);
+        } else  {
+            RAISE(E1);
+        }
         uint8_t data =
             CHECK(D7) << 7 |
             CHECK(D6) << 6 |
@@ -101,7 +106,13 @@ public:
             CHECK(D2) << 2 |
             CHECK(D1) << 1 |
             CHECK(D0);
-        LOWER(E1);
+        
+        if (module == Bottom)
+        {
+            LOWER(E2);
+        } else  {
+            LOWER(E1);
+        }
 
         DIRECTION(D0, 1);
         DIRECTION(D1, 1);

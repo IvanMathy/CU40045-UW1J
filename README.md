@@ -6,11 +6,8 @@ This repository contains a custom version of the Noritake CUU library for Arduin
 
 - Removed 4bit support. It would probably be easy to add back in.
 - Removed non-M68 interfaces
-
-
-## Unsupported functions
-
-- Reading from the top half should work fine, bottom half most likely does not. I have not tested reading at all so it might need some work.
+- Removed CU20045-UW4J support and brightness boost
+- Reading returns the value from the current targeted module, defaulting to top if both modules are targeted.
 
 ## How it works
 
