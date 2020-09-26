@@ -5,7 +5,7 @@
 #include <Noritake_VFD_CUU.h>
 #include <util/delay.h>
 
-#define MIN_DELAY 0.1
+#define MIN_DELAY 5
 
 void Noritake_VFD_CUU::begin(int cols, int lines) {
     this->cols = cols;
@@ -20,13 +20,21 @@ void Noritake_VFD_CUU::interface(CUU_Interface &interface) {
 // Initialize the VFD module. This must be called before any other
 // methods.
 int
+Noritake_VFD_CUU::CUU_init_all() {
+	isTopLine = true;
+    CUU_init();
+	isTopLine = false;
+    CUU_init();
+	return 0;
+}
+
+void
 Noritake_VFD_CUU::CUU_init() {
     io->init();
     CUU_brightness(100);
 	CUU_displayOn();
 	CUU_leftToRight();
 	CUU_clearScreen();
-	return 0;
 }
 
 //----------------------------------------------------------------
@@ -35,7 +43,7 @@ Noritake_VFD_CUU::CUU_init() {
 //data: command to send
 void
 Noritake_VFD_CUU::CUU_command(uint8_t data) {
-	io->write(data, false);
+	io->write(data, false, isTopLine);
 	_delay_us(MIN_DELAY);
 }
 
@@ -45,7 +53,7 @@ Noritake_VFD_CUU::CUU_command(uint8_t data) {
 //data: byte to send
 void
 Noritake_VFD_CUU::CUU_writeData(uint8_t data) {
-	io->write(data, true);
+	io->write(data, true, isTopLine);
 	_delay_us(MIN_DELAY);
 }
 
@@ -588,7 +596,7 @@ Noritake_VFD_CUU::CUU_brightness(int brightness) {
         if (brightness <= 0 || brightness > 100 * m) return;
         CUU_command(io->is8bit()? 0x30: 0x20);
     	_delay_us(MIN_DELAY);
-    	CUU_writeData((100 * 1 - 100) / (25 * 1));
+    	CUU_writeData((100 * m - brightness) / (25 * m));
     	_delay_us(MIN_DELAY);
     }
 }

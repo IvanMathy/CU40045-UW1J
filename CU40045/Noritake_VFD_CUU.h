@@ -11,6 +11,7 @@ class Noritake_VFD_CUU {
     bool    hasBrightnessBoost; // module has brightness boost
     bool    is_cu20045_uw4j; // module is a CU20045-UW4J
     CUU_Interface *io; // interface
+
 	
 	void setDisplay();	// Set display according to display/cursor/blink members
 	void setDirection();	// Set text direction based on rightToLeft/autoscroll
@@ -24,6 +25,7 @@ class Noritake_VFD_CUU {
     int     lines; // Number of lines on the display.
     bool    bc_font;// true=Japanese (default); false=European
     bool    bc_vfd; // true=DS2045G; false=CU-U
+    bool    isTopLine; // Which line are we writing to
     
     void begin(int cols, int lines);
     void interface(CUU_Interface &interface);
@@ -44,7 +46,8 @@ class Noritake_VFD_CUU {
         is_cu20045_uw4j = false;
 	}
 	
-    int CUU_init();
+    void CUU_init();
+    int CUU_init_all();
 	void CUU_clearScreen();
 	void CUU_home();
 	void CUU_setCursor(uint8_t pos);

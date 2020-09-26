@@ -12,7 +12,7 @@ class CUU_Interface {
 
 public:
     virtual void init() = 0;
-    virtual void write(uint8_t data, bool rs) = 0;
+    virtual void write(uint8_t data, bool rs, bool topLine = true) = 0;
     virtual uint8_t read(bool rs) = 0;
     virtual bool is8bit() = 0;
 };
