@@ -25,7 +25,8 @@ class Noritake_VFD_CUU {
     int     lines; // Number of lines on the display.
     bool    bc_font;// true=Japanese (default); false=European
     bool    bc_vfd; // true=DS2045G; false=CU-U
-    bool    isTopLine; // Which line are we writing to
+	
+	unsigned currentModule:1; // The module currently being written to
     
     void begin(int cols, int lines);
     void interface(CUU_Interface &interface);
@@ -54,6 +55,9 @@ class Noritake_VFD_CUU {
 	void CUU_setCursor(uint8_t col, uint8_t line);
 	void CUU_createChar(uint8_t num, uint8_t *data);
 	void CUU_readChar(uint8_t *data, uint8_t num);
+
+	
+	void CUU_clearCurrentScreen();
 	
 	void CUU_command(uint8_t data);
 	void CUU_writeData(uint8_t data);

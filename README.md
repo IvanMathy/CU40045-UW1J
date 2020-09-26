@@ -11,3 +11,8 @@ This repository contains a custom version of the Noritake CUU library for Arduin
 ## Unsupported functions
 
 - Reading from the top half should work fine, bottom half most likely does not. I have not tested reading at all so it might need some work.
+
+## How it works
+
+This display contains two different driver modules, which means it behaves the same as two separate displays that just so happen to share the same data pins. The enable pins are separate (noted as `E1` and `E2` in the spec), allowing us to target the modules individually by only raising/lowering the correct pin (or both, if we want the same behavior at once).
+

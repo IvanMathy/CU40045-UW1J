@@ -19,21 +19,22 @@ void Noritake_VFD_CUU::interface(CUU_Interface &interface) {
 // ----------------------------------------------------------------
 // Initialize the VFD module. This must be called before any other
 // methods.
-int
-Noritake_VFD_CUU::CUU_init_all() {
-	isTopLine = true;
-    CUU_init();
-	isTopLine = false;
-    CUU_init();
-	return 0;
-}
 
 void
 Noritake_VFD_CUU::CUU_init() {
     io->init();
+	
+	currentModule = 0;
     CUU_brightness(100);
 	CUU_displayOn();
-	CUU_leftToRight();
+	
+	currentModule = 1;
+
+	CUU_brightness(100);
+	CUU_displayOn();
+	
+	currentModule = 0;
+
 	CUU_clearScreen();
 }
 
@@ -43,7 +44,7 @@ Noritake_VFD_CUU::CUU_init() {
 //data: command to send
 void
 Noritake_VFD_CUU::CUU_command(uint8_t data) {
-	io->write(data, false, isTopLine);
+	io->write(data, false, currentModule == 0);
 	_delay_us(MIN_DELAY);
 }
 
@@ -53,7 +54,7 @@ Noritake_VFD_CUU::CUU_command(uint8_t data) {
 //data: byte to send
 void
 Noritake_VFD_CUU::CUU_writeData(uint8_t data) {
-	io->write(data, true, isTopLine);
+	io->write(data, true, currentModule == 0);
 	_delay_us(MIN_DELAY);
 }
 
@@ -309,6 +310,19 @@ Noritake_VFD_CUU::println(unsigned long number, int base) {
 // left-to-right.
 void
 Noritake_VFD_CUU::CUU_clearScreen() {
+	unsigned module = currentModule;
+
+	currentModule = 0;
+	CUU_clearCurrentScreen();
+	
+	currentModule = 1;
+	CUU_clearCurrentScreen();
+
+	currentModule = module;
+}
+
+void
+Noritake_VFD_CUU::CUU_clearCurrentScreen() {
 	CUU_command(0x01);
 	_delay_ms(5);
 }
