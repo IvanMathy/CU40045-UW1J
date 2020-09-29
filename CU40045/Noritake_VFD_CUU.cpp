@@ -7,12 +7,6 @@
 
 #define MIN_DELAY 5
 
-void Noritake_VFD_CUU::begin(int cols, int lines)
-{
-	this->cols = cols;
-	this->lines = lines;
-}
-
 void Noritake_VFD_CUU::interface(CUU_Interface &interface)
 {
 	this->io = &interface;
@@ -26,10 +20,34 @@ void Noritake_VFD_CUU::CUU_init()
 {
 	io->init();
 
+	this->cols = 40;
+	this->lines = 4;
+
+
+	// Wait for the display to warm up
+
+    _delay_ms(2000);   
+
+	// Seems like modules need to be initialized separately here. Delays make it more reliable
+
 	currentModule = Both;
-	CUU_brightness(100);
+
 	CUU_displayOn();
+	CUU_home();
+	CUU_leftToRight();
 	CUU_clearScreen();
+	CUU_brightness(100);
+
+
+    _delay_ms(500);   
+
+	currentModule = Bottom;
+
+	CUU_displayOn();
+	CUU_home();
+	CUU_leftToRight();
+	CUU_clearScreen();
+	CUU_brightness(100);
 
 	currentModule = Top;
 }
@@ -112,9 +130,12 @@ void Noritake_VFD_CUU::nextLine()
 		x = cols;
 	else
 	{
-		if(currentModule == Top) {
+		if (currentModule == Top)
+		{
 			currentModule = Bottom;
-		} else  {
+		}
+		else
+		{
 			currentModule = Top;
 		}
 		x = 0x00;
@@ -353,16 +374,20 @@ void Noritake_VFD_CUU::CUU_setCursor(uint8_t col, uint8_t line)
 		switch (line)
 		{
 		case 0:
+			currentModule = Top;
 			CUU_setCursor(0x00 + col);
 			break;
 		case 1:
+			currentModule = Top;
 			CUU_setCursor(0x40 + col);
 			break;
-		case 2:
-			CUU_setCursor(0x14 + col);
+		case 2:	
+			currentModule = Bottom;
+			CUU_setCursor(0x00 + col);
 			break;
 		case 3:
-			CUU_setCursor(0x54 + col);
+			currentModule = Bottom;
+			CUU_setCursor(0x40 + col);
 			break;
 		}
 	}
