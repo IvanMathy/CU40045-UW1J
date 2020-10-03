@@ -47,8 +47,12 @@ Here's the wiring for the included examples (though you might want to reorder th
 
 # Samples
 
+The sample code can be found in the `/CU40045/examples/` directory.
+
 ## Ticker
 
 <p align="center">
   <img src="img/ticker.gif?raw=true" alt="Ticker">
 </p>
+
+This sample demonstrates how to emulate keyboard entry by showing the built-in cursor, randomizing time between key presses, and ending on an emulated blinking state.
