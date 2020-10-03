@@ -65,3 +65,11 @@ The sample code can be found in the `/CU40045/examples/` directory.
 
 This sample demonstrates how to emulate keyboard entry by showing the built-in cursor, randomizing time between key presses, and ending on an emulated blinking state.
 
+
+## Pong
+
+<p align="center">
+  <img src="img/pong.gif?raw=true" alt="Pong">
+</p>
+
+This sample is a basic bouncing ball animation. How fun!
