@@ -45,3 +45,10 @@ Here's the wiring for the included examples (though you might want to reorder th
 | 15             | GPIO 2       | E2           |
 | 16             | Not Used     | N/C          |
 
+# Samples
+
+## Ticker
+
+<p align="center">
+  <img src="img/ticker.gif?raw=true" alt="Ticker">
+</p>
