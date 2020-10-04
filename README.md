@@ -45,6 +45,14 @@ Here's the wiring for the included examples (though you might want to reorder th
 | 15             | GPIO 2       | E2           |
 | 16             | Not Used     | N/C          |
 
+
+Once you're all wired up, you can tweak the pin numbers in the interface:
+
+```cpp
+// RS, RW, E1, E2, D0, D1, D2, D3, D4, D5, D6, D7
+CUU_Parallel_M68 interface(13,12, 11, 2, 3,4,5,6,7,8,9,10);
+```
+
 # Samples
 
 The sample code can be found in the `/CU40045/examples/` directory.
@@ -56,3 +64,12 @@ The sample code can be found in the `/CU40045/examples/` directory.
 </p>
 
 This sample demonstrates how to emulate keyboard entry by showing the built-in cursor, randomizing time between key presses, and ending on an emulated blinking state.
+
+
+## Pong
+
+<p align="center">
+  <img src="img/pong.gif?raw=true" alt="Pong">
+</p>
+
+This sample is a basic bouncing ball animation. How fun!
