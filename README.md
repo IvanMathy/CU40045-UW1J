@@ -7,6 +7,7 @@
 
 This repository contains a custom version of the Noritake CUU library for Arduino, built to add support their CU40045-UW1J model. This repository is tailored to my use case and does not implement all the features of the module, though it should support most of it.
 
+
 ## Major changes
 
 - Added 2 modules support
@@ -15,10 +16,35 @@ This repository contains a custom version of the Noritake CUU library for Arduin
 - Removed CU20045-UW4J support and brightness boost
 - Reading returns the value from the current targeted module, defaulting to top if both modules are targeted.
 
-## How it works
 
-This display contains two different driver modules, which means it behaves the same as two separate displays that just so happen to share the same data pins. The enable pins are separate (noted as `E1` and `E2` in the spec), allowing us to target the modules individually by only raising/lowering the correct pin (or both, if we want the same behavior at once).
+# Samples
 
+The sample code can be found in the `/CU40045/examples/` directory.
+
+## Ticker
+
+<p align="center">
+  <img src="img/ticker.gif?raw=true" alt="Ticker">
+</p>
+
+This sample demonstrates how to emulate keyboard entry by showing the built-in cursor, randomizing time between key presses, and ending on an emulated blinking state.
+
+
+## Pong
+
+<p align="center">
+  <img src="img/pong.gif?raw=true" alt="Pong">
+</p>
+
+This sample is a basic bouncing ball animation. How fun!
+
+## Waves
+
+<p align="center">
+  <img src="img/waves.gif?raw=true" alt="Waves">
+</p>
+
+This sample uses built in non-text characters to make a wavey pattern all over the display.
 
 ## Wiring
 
@@ -53,23 +79,6 @@ Once you're all wired up, you can tweak the pin numbers in the interface:
 CUU_Parallel_M68 interface(13,12, 11, 2, 3,4,5,6,7,8,9,10);
 ```
 
-# Samples
+## How it works
 
-The sample code can be found in the `/CU40045/examples/` directory.
-
-## Ticker
-
-<p align="center">
-  <img src="img/ticker.gif?raw=true" alt="Ticker">
-</p>
-
-This sample demonstrates how to emulate keyboard entry by showing the built-in cursor, randomizing time between key presses, and ending on an emulated blinking state.
-
-
-## Pong
-
-<p align="center">
-  <img src="img/pong.gif?raw=true" alt="Pong">
-</p>
-
-This sample is a basic bouncing ball animation. How fun!
+This display contains two different driver modules, which means it behaves the same as two separate displays that just so happen to share the same data pins. The enable pins are separate (noted as `E1` and `E2` in the spec), allowing us to target the modules individually by only raising/lowering the correct pin (or both, if we want the same behavior at once).
